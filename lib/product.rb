@@ -26,4 +26,14 @@ class Product
   def self.from_file(file_path)
     raise NotImplementedError
   end
+
+  def self.show_list (products)
+    puts "Что хотите купить?"
+
+    products.each_with_index do |product, index|
+      puts "#{index + 1}: #{product.to_s}"
+    end
+
+    puts "0. Покинуть магазин."
+  end
 end

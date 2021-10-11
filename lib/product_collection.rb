@@ -8,7 +8,8 @@ class ProductCollection
   # массив с название папки (где лежат файлы этого типа) и ссылкой на класс.
   PRODUCT_TYPES = {
     film: {dir: 'films', class: Film},
-    book: {dir: 'books', class: Book}
+    book: {dir: 'books', class: Book},
+    disk: {dir: 'disks', class: Disk}
   }
 
   # Конструктор коллекции принимает на вход массив продуктов, но если ничего не
