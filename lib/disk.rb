@@ -33,6 +33,10 @@ class Disk < Product
     "Альбом «#{@title}» - #{@author}, #{@genre}, #{@year}, #{super}"
   end
 
+  def to_basket
+    "Альбом «#{@title}» - #{@author}, #{@genre}, #{@year}"
+  end
+
   def update(params)
     super
 

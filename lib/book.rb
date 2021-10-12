@@ -31,6 +31,10 @@ class Book < Product
     "Книга «#{@title}», #{@genre}, автор — #{@author}, #{super}"
   end
 
+  def to_basket
+    "Книга «#{@title}», #{@genre}, автор — #{@author}"
+  end
+
   def update(params)
     super
 

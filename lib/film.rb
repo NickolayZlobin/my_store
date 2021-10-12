@@ -31,6 +31,10 @@ class Film < Product
     "Фильм «#{@title}», #{@year}, реж. #{@director}, #{super}"
   end
 
+  def to_basket
+    "Фильм «#{@title}», #{@year}, реж. #{@director}"
+  end
+
   def update(params)
     super
 

@@ -19,7 +19,7 @@ require_relative 'lib/product'
 require_relative 'lib/book'
 require_relative 'lib/film'
 require_relative 'lib/disk'
-
+require_relative 'lib/basket'
 # Подключаем класс ProductCollection
 require_relative 'lib/product_collection'
 
@@ -34,35 +34,30 @@ collection.sort!(by: :price, order: :asc)
 
 # Получаем массив продуктов методом to_a и выводим каждый на экран, передавая
 # его методу puts в качестве аргумента.
-summ = 0
-user_purchases = []
 user_choice = nil
+user_basket = Basket.new
 
 until user_choice == 0
-  Product.show_list(collection.to_a)
+  puts Product.show_list(collection.to_a)
   user_choice = STDIN.gets.to_i
+  prod_index = user_choice - 1
 
-  if (1..collection.to_a.size).include?(user_choice)
-    if collection.to_a[user_choice - 1].amount.to_i > 0
-      summ += collection.to_a[user_choice - 1].price.to_i
-      collection.to_a[user_choice -1].update(amount: collection.to_a[user_choice -1].amount.to_i - 1)
-      puts
-      puts "Вы выбрали #{collection.to_a[user_choice - 1].to_s}\n"+
-           "Всего товаров на сумму - #{summ} руб."
-      puts
-      user_purchases << collection.to_a[user_choice - 1].to_s
-    else
-      puts 'Извините товар закончился.'
-    end                     
+  if (1..collection.to_a.size).include?(user_choice)  
+    collection.to_a[prod_index].update(amount: collection.to_a[prod_index].amount.to_i - 1)
+    user_basket.add_product({title: collection.to_a[prod_index].to_basket,  
+                            price: collection.to_a[prod_index].price.to_i})
+    puts
+    puts user_basket.show_list
+    puts                    
   end
 
-  if user_choice == 0
-    if user_purchases.size > 0 
-      puts 'Вы купили:'
-      user_purchases.each {|purchase| puts purchase}
-      puts "C Вас - #{summ} руб."
+  if user_choice.zero?
+    if user_basket.empty? 
       puts 'Досвидание.'
     else
+      puts
+      puts user_basket.show_list.gsub('В вашей корзине:', 'Вы приобрели:').gsub('Итого к оплате:', 'Итого на сумму:')
+      puts
       puts 'Досвидание.'
     end
   end

@@ -28,12 +28,12 @@ class Product
   end
 
   def self.show_list (products)
-    puts "Что хотите купить?"
+    str = ""
 
     products.each_with_index do |product, index|
-      puts "#{index + 1}: #{product.to_s}"
+      str += "#{index + 1}: #{product.to_s}\n" if product.amount.to_i > 0 
     end
 
-    puts "0. Покинуть магазин."
+    result_str = "Что хотите купить?\n#{str}0. Покинуть магазин."
   end
 end
