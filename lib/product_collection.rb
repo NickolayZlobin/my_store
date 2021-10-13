@@ -91,10 +91,7 @@ class ProductCollection
     self
   end
 
-  def show_list
-    result = 
-      @products.each_with_index.map do |product, index|
-        "#{index + 1} #{product.to_s}\n" if product.amount.to_i > 0 
-      end 
+  def show_list 
+    @products.each_with_index.map {|product, index| "#{index + 1} #{product.to_s}\n" if product.amount.to_i > 0}.join  
   end
 end

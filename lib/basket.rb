@@ -10,14 +10,11 @@ class Basket
   end
 
   def total_summ
-    summ = 0
-    @products.each {|prod| summ += prod[:price]}
-    return summ
+    @products.sum(&:price)
   end
 
   def show_list
     counter = 0
-    result =
-      @products.tally.map {|prod, quantity| "#{counter +=1}. #{prod[:title]} #{quantity} шт. на сумму #{prod[:price] *quantity} руб."}.join("\n")               
+    @products.tally.map {|prod, quantity| puts "#{counter += 1}. #{prod.to_basket} #{quantity} шт. на сумму #{prod.price.to_i * quantity} руб."}.join("\n")  
   end
 end

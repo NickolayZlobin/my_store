@@ -30,7 +30,7 @@ collection = ProductCollection.from_dir(File.dirname(__FILE__) + '/data')
 
 # Сортируем продукты по возрастанию цены с помощью метода sort! экземпляра
 # класса ProductCollection
-collection.sort!(by: :price, order: :asc)
+collection.sort!(by: :title, order: :asc)
 
 # Получаем массив продуктов методом to_a и выводим каждый на экран, передавая
 # его методу puts в качестве аргумента.
@@ -45,9 +45,8 @@ until user_choice == 0
   prod_index = user_choice - 1
 
   if (1..collection.to_a.size).include?(user_choice) 
-    collection.to_a[prod_index].update(amount: collection.to_a[prod_index].amount.to_i - 1)
-    user_basket.add_product({title: collection.to_a[prod_index].to_basket,  
-                            price: collection.to_a[prod_index].price.to_i})
+    user_basket.add_product(collection.to_a[prod_index]) if collection.to_a[prod_index].amount > 0
+    collection.to_a[prod_index].update(amount: collection.to_a[prod_index].amount - 1)
     puts
     puts 'В вашей корзине:'
     puts user_basket.show_list
