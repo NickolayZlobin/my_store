@@ -90,4 +90,11 @@ class ProductCollection
     # другие методы.
     self
   end
+
+  def show_list
+    result = 
+      @products.each_with_index.map do |product, index|
+        "#{index + 1} #{product.to_s}\n" if product.amount.to_i > 0 
+      end 
+  end
 end

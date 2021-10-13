@@ -38,27 +38,32 @@ user_choice = nil
 user_basket = Basket.new
 
 until user_choice == 0
-  puts Product.show_list(collection.to_a)
+  puts 'Что хотите купить?'  
+  puts collection.show_list
+  puts '0. Покинуть магазин'
   user_choice = STDIN.gets.to_i
   prod_index = user_choice - 1
 
-  if (1..collection.to_a.size).include?(user_choice)  
+  if (1..collection.to_a.size).include?(user_choice) 
     collection.to_a[prod_index].update(amount: collection.to_a[prod_index].amount.to_i - 1)
     user_basket.add_product({title: collection.to_a[prod_index].to_basket,  
                             price: collection.to_a[prod_index].price.to_i})
     puts
+    puts 'В вашей корзине:'
     puts user_basket.show_list
+    puts "Итого на - #{user_basket.total_summ} руб."
     puts                    
   end
 
   if user_choice.zero?
-    if user_basket.empty? 
+    if user_basket.products.empty? 
       puts 'Досвидание.'
     else
       puts
-      puts user_basket.show_list.gsub('В вашей корзине:', 'Вы приобрели:').gsub('Итого к оплате:', 'Итого на сумму:')
-      puts
-      puts 'Досвидание.'
+      puts 'Вы приобрели:'
+      puts user_basket.show_list
+      puts "На общую сумму - #{user_basket.total_summ} руб."
+      puts 'Спасибо за покупки! Досвидание.'
     end
   end
 end
